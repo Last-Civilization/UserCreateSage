@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("payment-write-service")
-interface PaymentClient {
+public interface PaymentClient {
 
     @DeleteMapping("/payments/{id}")
     void deleteAccount(@PathVariable long id);

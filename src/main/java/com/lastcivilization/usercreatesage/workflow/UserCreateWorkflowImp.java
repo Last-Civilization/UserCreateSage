@@ -1,5 +1,6 @@
 package com.lastcivilization.usercreatesage.workflow;
 
+import com.lastcivilization.usercreatesage.UserCreateSageApplication;
 import com.uber.cadence.workflow.Workflow;
 
 public class UserCreateWorkflowImp implements UserCreateWorkflow{
@@ -12,16 +13,8 @@ public class UserCreateWorkflowImp implements UserCreateWorkflow{
     @Override
     public void handleUserCreate() {
         while (!error){
-            System.out.println("CURRENT STATE: ");
-            System.out.println("EQ: "+equipment);
-            System.out.println("STATS: "+stats);
-            System.out.println("ACCOUNT: "+account);
             Workflow.await(() -> error);
         }
-        System.out.println("CURRENT STATE: ");
-        System.out.println("EQ: "+equipment);
-        System.out.println("STATS: "+stats);
-        System.out.println("ACCOUNT: "+account);
         deleteNotCohesionRecords();
     }
 

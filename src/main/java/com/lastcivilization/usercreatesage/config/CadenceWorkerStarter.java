@@ -62,7 +62,6 @@ public class CadenceWorkerStarter {
 
     private void createWorkers() {
         Worker worker = workerFactory.newWorker(UserCreateWorkflow.TASK_LIST, workerOptions);
-
         worker.registerWorkflowImplementationTypes(WORKFLOW_IMPLEMENTATION_TYPES);
     }
 
