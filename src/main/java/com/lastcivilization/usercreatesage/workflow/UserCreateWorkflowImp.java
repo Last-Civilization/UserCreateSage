@@ -12,14 +12,12 @@ public class UserCreateWorkflowImp implements UserCreateWorkflow{
 
     @Override
     public void handleUserCreate() {
-        while (!error){
-            Workflow.await(() -> error);
-        }
+        Workflow.await(() -> error);
         deleteNotCohesionRecords();
     }
 
     private void deleteNotCohesionRecords() {
-        System.out.println("Deleted records!");
+        System.out.println("Deleted records! E: "+equipment+" S: "+stats+" A: "+account);
     }
 
     @Override
