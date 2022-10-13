@@ -1,8 +1,13 @@
 package com.lastcivilization.usercreatesage.workflow;
 
 import com.lastcivilization.usercreatesage.UserCreateSageApplication;
+import com.lastcivilization.usercreatesage.feign.EquipmentClient;
+import com.lastcivilization.usercreatesage.feign.FeignClients;
 import com.uber.cadence.workflow.Workflow;
+import feign.FeignException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UserCreateWorkflowImp implements UserCreateWorkflow{
 
     private long equipment;
@@ -17,7 +22,22 @@ public class UserCreateWorkflowImp implements UserCreateWorkflow{
     }
 
     private void deleteNotCohesionRecords() {
-        System.out.println("Deleted records! E: "+equipment+" S: "+stats+" A: "+account);
+        FeignClients feignClients = (FeignClients) UserCreateSageApplication.applicationContext.getBean("feignClients");
+        try{
+            feignClients.deleteEquipement(equipment);
+        } catch (FeignException exception){
+            log.error(exception.getMessage());
+        }
+        try{
+            feignClients.deleteStats(stats);
+        } catch (FeignException exception){
+            log.error(exception.getMessage());
+        }
+        try{
+            feignClients.deleteAccount(account);
+        } catch (FeignException exception){
+            log.error(exception.getMessage());
+        }
     }
 
     @Override
