@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserCreateWorkflowImp implements UserCreateWorkflow{
 
-    private long equipment;
-    private long stats;
-    private long account;
+    private Long equipment;
+    private Long stats;
+    private Long account;
     private boolean error = false;
 
     @Override
@@ -23,20 +23,26 @@ public class UserCreateWorkflowImp implements UserCreateWorkflow{
 
     private void deleteNotCohesionRecords() {
         FeignClients feignClients = (FeignClients) UserCreateSageApplication.applicationContext.getBean("feignClients");
-        try{
-            feignClients.deleteEquipement(equipment);
-        } catch (FeignException exception){
-            log.error(exception.getMessage());
+        if(equipment != null){
+            try{
+                feignClients.deleteEquipement(equipment);
+            } catch (FeignException exception){
+                log.error(exception.getMessage());
+            }
         }
-        try{
-            feignClients.deleteStats(stats);
-        } catch (FeignException exception){
-            log.error(exception.getMessage());
+        if (stats != null){
+            try{
+                feignClients.deleteStats(stats);
+            } catch (FeignException exception){
+                log.error(exception.getMessage());
+            }
         }
-        try{
-            feignClients.deleteAccount(account);
-        } catch (FeignException exception){
-            log.error(exception.getMessage());
+        if(account != null){
+            try{
+                feignClients.deleteAccount(account);
+            } catch (FeignException exception){
+                log.error(exception.getMessage());
+            }
         }
     }
 
