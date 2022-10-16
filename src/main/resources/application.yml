@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: user-create-sage
+  config:
+    import: optional:configserver:http://localhost:8888/
+  cloud:
+    config:
+      token: last-civilization
+server:
+  port: 0
